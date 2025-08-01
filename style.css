@@ -1,0 +1,101 @@
+/* ============================================
+   1. ESTILO GERAL DA PÁGINA
+   Define a aparência global do corpo da página
+============================================ */
+body {
+  margin: 0; /* Remove margens padrão do navegador */
+  padding: 0; /* Remove espaçamento interno padrão */
+  font-family: 'Segoe UI', sans-serif; /* Fonte moderna e legível */
+  background-color: #d0f80794; /* Cor de fundo clara e suave */
+  color: #333; /* Cor padrão do texto */
+}
+
+/* --------------------------------------------
+   1.1. TÍTULO SUPERIOR (HEADER)
+   Estiliza o cabeçalho com fundo colorido e texto centralizado
+-------------------------------------------- */
+header.topo {
+  text-align: center; /* Centraliza o texto */
+  padding: 40px 20px; /* Espaçamento interno do cabeçalho */
+  background-color: #2f48c5; /* Cor de fundo verde escuro */
+  color: rgb(255, 255, 255); /* Cor do texto */
+  font-size: 1.8rem; /* Tamanho grande para destaque */
+  text-shadow: 1px 1px 2px #222; /* Sombra para dar contraste no texto */
+}
+
+/* ============================================
+   2. CONTAINER EM GRADE (3 COLUNAS)
+   Define a grade 3x3 onde as imagens serão distribuídas
+============================================ */
+.grade-container {
+  display: grid; /* Define como grade */
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas de mesma largura */
+  gap: 20px; /* Espaço entre os blocos */
+  max-width: 960px; /* Largura máxima da grade */
+  margin: 40px auto; /* Centraliza a grade na tela */
+  padding: 20px; /* Espaço interno do container */
+  position: relative; /* Necessário para efeitos relativos aos itens */
+}
+
+/* ============================================
+   3. ITENS DA GRADE (DIVS INDIVIDUAIS)
+   Define o estilo das 9 caixas quadradas
+============================================ */
+.item {
+  aspect-ratio: 1 / 1; /* Mantém o formato quadrado */
+  overflow: hidden; /* Esconde qualquer conteúdo que ultrapasse a borda */
+  border-radius: 12px; /* Arredondamento dos cantos */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra discreta ao redor */
+  position: relative; /* Posicionamento relativo para trabalhar com efeitos */
+  z-index: 1; /* Controla a sobreposição das camadas */
+  transition: transform 0.3s ease; /* Suaviza qualquer transformação */
+}
+
+/* --------------------------------------------
+   3.1. IMAGENS DENTRO DE CADA ITEM
+   Estiliza as imagens para que preencham toda a div
+-------------------------------------------- */
+.item img {
+  width: 100%; /* Ocupa toda a largura da div */
+  height: 100%; /* Ocupa toda a altura da div */
+  object-fit: cover; /* Ajusta a imagem sem distorcer */
+  transition: transform 0.4s ease; /* Suaviza o zoom */
+  border-radius: 12px; /* Arredonda como o container */
+  pointer-events: none; /* Impede que o cursor interaja com a imagem */
+}
+
+/* ============================================
+   4. EFEITO DE AMPLIAÇÃO AO PASSAR O MOUSE
+   Ao passar o mouse, a imagem se amplia no centro da tela
+============================================ */
+
+/* Eleva o z-index da div ativa para que fique acima das demais */
+.item:hover {
+  z-index: 999;
+}
+
+/* Cria um fundo escurecido por trás da imagem ampliada */
+.item:hover::after {
+  content: ""; /* Cria uma pseudo-div */
+  position: fixed; /* Ocupa toda a tela */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5); /* Fundo escuro semitransparente */
+  z-index: -1; /* Fica atrás da imagem ampliada */
+  pointer-events: none; /* Não interfere nos cliques */
+}
+
+/* Amplia e centraliza a imagem no meio da tela */
+.item:hover img {
+  position: fixed; /* Fixa no centro da tela */
+  top: 50%;
+  left: 50%;
+  width: 60vmin; /* Tamanho proporcional à tela */
+  height: 60vmin;
+  transform: translate(-50%, -50%) scale(1.1); /* Centraliza e aumenta */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7); /* Sombra forte ao redor */
+  border-radius: 20px; /* Arredondamento ampliado */
+  z-index: 1000; /* Garante que fique acima de tudo */
+}
