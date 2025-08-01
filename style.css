@@ -17,19 +17,19 @@ body {
 header.topo {
   text-align: center; /* Centraliza o texto */
   padding: 40px 20px; /* Espaçamento interno do cabeçalho */
-  background-color: #2f48c5; /* Cor de fundo verde escuro */
+  background-color: #2f48c5; /* Cor de fundo azul escuro */
   color: rgb(255, 255, 255); /* Cor do texto */
   font-size: 1.8rem; /* Tamanho grande para destaque */
   text-shadow: 1px 1px 2px #222; /* Sombra para dar contraste no texto */
 }
 
 /* ============================================
-   2. CONTAINER EM GRADE (3 COLUNAS)
-   Define a grade 3x3 onde as imagens serão distribuídas
+   2. CONTAINER EM GRADE RESPONSIVO
+   Define a grade onde as imagens serão distribuídas de forma adaptativa
 ============================================ */
 .grade-container {
   display: grid; /* Define como grade */
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas de mesma largura */
+  grid-template-columns: repeat(3, 1fr); /* Layout padrão: 3 colunas */
   gap: 20px; /* Espaço entre os blocos */
   max-width: 960px; /* Largura máxima da grade */
   margin: 40px auto; /* Centraliza a grade na tela */
@@ -37,9 +37,29 @@ header.topo {
   position: relative; /* Necessário para efeitos relativos aos itens */
 }
 
+/* --------------------------------------------
+   2.1. GRADE PARA TABLETS (até 768px)
+   Reduz para 2 colunas quando a tela for menor
+-------------------------------------------- */
+@media (max-width: 768px) {
+  .grade-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas para tablets */
+  }
+}
+
+/* --------------------------------------------
+   2.2. GRADE PARA CELULARES (até 480px)
+   Reduz para 1 coluna para melhor visualização
+-------------------------------------------- */
+@media (max-width: 480px) {
+  .grade-container {
+    grid-template-columns: 1fr; /* 1 coluna para celulares */
+  }
+}
+
 /* ============================================
    3. ITENS DA GRADE (DIVS INDIVIDUAIS)
-   Define o estilo das 9 caixas quadradas
+   Define o estilo das caixas quadradas
 ============================================ */
 .item {
   aspect-ratio: 1 / 1; /* Mantém o formato quadrado */
@@ -69,33 +89,14 @@ header.topo {
    Ao passar o mouse, a imagem se amplia no centro da tela
 ============================================ */
 
-/* Eleva o z-index da div ativa para que fique acima das demais */
-.item:hover {
-  z-index: 999;
-}
+/* --------------------------------------------
+   4.1. Apenas em telas maiores (evita conflito com toque)
+-------------------------------------------- */
+@media (min-width: 769px) {
 
-/* Cria um fundo escurecido por trás da imagem ampliada */
-.item:hover::after {
-  content: ""; /* Cria uma pseudo-div */
-  position: fixed; /* Ocupa toda a tela */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.5); /* Fundo escuro semitransparente */
-  z-index: -1; /* Fica atrás da imagem ampliada */
-  pointer-events: none; /* Não interfere nos cliques */
-}
+  /* Eleva o z-index da div ativa para que fique acima das demais */
+  .item:hover {
+    z-index: 999;
+  }
 
-/* Amplia e centraliza a imagem no meio da tela */
-.item:hover img {
-  position: fixed; /* Fixa no centro da tela */
-  top: 50%;
-  left: 50%;
-  width: 60vmin; /* Tamanho proporcional à tela */
-  height: 60vmin;
-  transform: translate(-50%, -50%) scale(1.1); /* Centraliza e aumenta */
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7); /* Sombra forte ao redor */
-  border-radius: 20px; /* Arredondamento ampliado */
-  z-index: 1000; /* Garante que fique acima de tudo */
-}
+  /* Cria um fundo escurecido por trás da ima*
